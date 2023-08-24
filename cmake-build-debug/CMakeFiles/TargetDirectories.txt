@@ -1,3 +1,0 @@
-C:/Users/acer/CLionProjects/University_Students_Database/cmake-build-debug/CMakeFiles/University_Students_Database.dir
-C:/Users/acer/CLionProjects/University_Students_Database/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/acer/CLionProjects/University_Students_Database/cmake-build-debug/CMakeFiles/rebuild_cache.dir
