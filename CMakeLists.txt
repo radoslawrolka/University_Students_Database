@@ -6,7 +6,11 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_EXE_LINKER_FLAGS "-static")
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_executable(University_Students_Database src/main.cpp)
+add_executable(University_Students_Database
+        src/main.cpp
+        src/Database.cpp
+        src/Student.cpp)
+
 
 include(FetchContent)
 FetchContent_Declare(
@@ -22,6 +26,8 @@ enable_testing()
 add_executable(
         USD_unittest
         src/test.cpp
+        src/Database.cpp
+        src/Student.cpp
 )
 target_link_libraries(
         USD_unittest
