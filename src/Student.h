@@ -33,6 +33,20 @@ public:
     std::string getFaculty();
     std::string getFieldOfStudy();
     [[nodiscard]] std::string getCurrentSemester() const;
+
+    void setName(const std::string& name);
+    void setLastName(const std::string& lastName);
+    void setAddress(const std::string& address);
+    void setCity(const std::string& city);
+    void setBirthday(const std::string& birthday);
+    void setPesel(const std::string& pesel);
+    void setGender(Gender gender);
+    void setIndexNumber(const std::string& indexNumber);
+    void setFaculty(const std::string& faculty);
+    void setFieldOfStudy(const std::string& fieldOfStudy);
+    void setCurrentSemester(int currentSemester);
+
+
     std::string toString();
 private:
     std::string name_;
