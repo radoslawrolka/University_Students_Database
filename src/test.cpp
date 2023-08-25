@@ -114,3 +114,11 @@ TEST_F(DatabaseClassTest, findStudent) {
     EXPECT_EQ(database.findStudent("012345678902"), "Student not found");
 }
 
+TEST_F(DatabaseClassTest, editStudent) {
+    database.addStudent(&a);
+    database.addStudent(&b);
+    EXPECT_TRUE(database.editStudent("012345678901", "11111111111"));
+    EXPECT_TRUE(database.editStudent("012345678909", "22222222222"));
+    EXPECT_TRUE(database.editStudent("11111111111", "11111111111"));
+    EXPECT_FALSE(database.editStudent("1111111111", "22222222222"));
+}

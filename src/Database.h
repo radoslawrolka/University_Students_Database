@@ -13,11 +13,11 @@
 class Database {
 public:
     //Database();
-    bool addStudent(Student& student);
+    bool addStudent(Student* student);
     std::string findStudent(const std::string& pesel);
-    bool editStudent(std::string oldData, std::string newData);
-private:
-    std::vector<Student> students_ = {};
+    bool editStudent(const std::string& oldData, const std::string& newData);
+//private:
+    std::vector<Student*> students_ = {};
 };
 
 
