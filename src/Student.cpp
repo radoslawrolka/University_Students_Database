@@ -74,3 +74,9 @@ std::string Student::getFieldOfStudy() {
 std::string Student::getCurrentSemester() const {
     return std::to_string(currentSemester_);
 }
+
+std::string Student::toString() {
+    return name_ + " " + lastName_ + " " + pesel_ + " " + birthday_+ " " + getGender() + "\n" +
+           address_ + " " + city_ + "\n" +
+           indexNumber_ + " " + faculty_ + " " + fieldOfStudy_ + " " + std::to_string(currentSemester_);
+}

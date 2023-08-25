@@ -33,6 +33,7 @@ public:
     std::string getFaculty();
     std::string getFieldOfStudy();
     [[nodiscard]] std::string getCurrentSemester() const;
+    std::string toString();
 private:
     std::string name_;
     std::string lastName_;
