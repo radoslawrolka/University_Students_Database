@@ -2,7 +2,7 @@
 
 #include "Student.h"
 #include "Database.h"
-#include "Interface.h"
+#include "UserClient.h"
 
 // Demonstrate some basic assertions.
 TEST(HelloTest, BasicAssertions) {
@@ -55,9 +55,8 @@ struct DatabaseClassTest : ::testing::Test {
     std::string BcurrentSemester = "3";
 };
 
-struct InterfaceClassTest : ::testing::Test {
-    Interface interface;
-
+struct UserClientClassTest : ::testing::Test {
+    UserClient userClient = UserClient();
 };
 
 TEST_F(StudentClassTest, getData) {
@@ -127,4 +126,11 @@ TEST_F(DatabaseClassTest, removeStudent) {
     EXPECT_TRUE(database.removeStudent("01234567899"));
     EXPECT_FALSE(database.removeStudent("01234567892"));
     EXPECT_FALSE(database.removeStudent("01234567890"));
+}
+
+TEST_F(UserClientClassTest, addStudent) {
+    std::string input = "NAME\nLASTNAME\nST. STREET HOMENUM\nCITY\n1999-01-01\n01234567890\nMale\n012345\nFACULTY\nFIELD\n1\n";
+    std::istringstream iss(input);
+    std::cin.rdbuf(iss.rdbuf());
+    EXPECT_TRUE(userClient.addStudent());
 }

@@ -28,7 +28,7 @@ public:
     bool saveToFile(const std::string& filename);
     bool openFromFile(const std::string& filename);
     ~Database();
-//private:
+private:
     std::vector<std::shared_ptr<Student>> students_ = {};
     std::unordered_map<std::string, std::shared_ptr<Student>> PeselMap_ = {};
     std::unordered_map<std::string, std::shared_ptr<Student>> IndexMap_ = {};

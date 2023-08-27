@@ -9,7 +9,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_executable(University_Students_Database
         src/main.cpp
         src/Database.cpp
-        src/Student.cpp)
+        src/Student.cpp
+        src/UserClient.cpp
+        src/UserClient.h
+        src/AdminClient.cpp
+        src/AdminClient.h)
 
 
 include(FetchContent)
@@ -28,6 +32,10 @@ add_executable(
         src/test.cpp
         src/Database.cpp
         src/Student.cpp
+        src/UserClient.cpp
+        src/UserClient.h
+        src/AdminClient.cpp
+        src/AdminClient.h
 )
 target_link_libraries(
         USD_unittest
