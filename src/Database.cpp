@@ -123,3 +123,14 @@ bool Database::openFromFile(const std::string &filename) {
     }
 }
 
+Database::~Database() {
+    for (auto& student : students_) {
+        student.reset();
+    }
+    for (auto& student : PeselMap_) {
+        student.second.reset();
+    }
+    for (auto& student : IndexMap_) {
+        student.second.reset();
+    }
+}
