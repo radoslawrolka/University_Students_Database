@@ -8,16 +8,30 @@
 #include "Student.h"
 
 #include <vector>
-
+#include <memory>
+#include <unordered_map>
 
 class Database {
 public:
     //Database();
-    bool addStudent(Student* student);
-    std::string findStudent(const std::string& pesel);
+    bool addStudent(std::string name,
+                    std::string lastname,
+                    std::string address,
+                    std::string& city,
+                    std::string& birthday,
+                    std::string& pesel,
+                    Gender gender,
+                    const std::string& indexNumber,
+                    const std::string& faculty,
+                    const std::string& fieldOfStudy,
+                    int currentSemester);
+    std::shared_ptr<Student> findStudent(const std::string& key);
     bool editStudent(const std::string& oldData, const std::string& newData);
+
 //private:
-    std::vector<Student*> students_ = {};
+    std::vector<std::shared_ptr<Student>> students_ = {};
+    std::unordered_map<std::string, std::shared_ptr<Student>> PeselMap_ = {};
+    std::unordered_map<std::string, std::shared_ptr<Student>> IndexMap_ = {};
 };
 
 

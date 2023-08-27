@@ -29,28 +29,29 @@ struct StudentClassTest : ::testing::Test {
 
 struct DatabaseClassTest : ::testing::Test {
     Database database;
-    Student a = Student("NAME",
-                              "LASTNAME",
-                              "ST. STREET HOMENUM",
-                              "CITY",
-                              "yyyyMMdd",
-                              "012345678901",
-                              Gender::Male,
-                              "012345",
-                              "FACULTY",
-                              "FIELD",
-                              1);
-    Student b = Student("NAME2",
-                        "LASTNAME2",
-                        "ST. STREET HOMENUM2",
-                        "CITY2",
-                        "YYYYmmDD",
-                        "012345678909",
-                        Gender::Female,
-                        "012346",
-                        "FACULTY2",
-                        "FIELD2",
-                        3);
+    std::string Aname = "NAME";
+    std::string Alastname = "LASTNAME";
+    std::string Aaddress = "ST. STREET HOMENUM";
+    std::string Acity = "CITY";
+    std::string Abirthday = "yyyyMMdd";
+    std::string Apesel = "01234567890";
+    Gender Agender = Gender::Male;
+    std::string AindexNumber = "012345";
+    std::string Afaculty = "FACULTY";
+    std::string AfieldOfStudy = "FIELD";
+    int AcurrentSemester = 1;
+
+    std::string Bname = "NAME2";
+    std::string Blastname = "LASTNAME2";
+    std::string Baddress = "ST. STREET HOMENUM2";
+    std::string Bcity = "CITY2";
+    std::string Bbirthday = "YYYYmmDD";
+    std::string Bpesel = "01234567899";
+    Gender Bgender = Gender::Female;
+    std::string BindexNumber = "012346";
+    std::string Bfaculty = "FACULTY2";
+    std::string BfieldOfStudy = "FIELD2";
+    int BcurrentSemester = 3;
 };
 
 
@@ -100,25 +101,26 @@ TEST_F(StudentClassTest, studentToString) {
 
 
 TEST_F(DatabaseClassTest, addStudents) {
-    EXPECT_TRUE(database.addStudent(&a));
-    EXPECT_TRUE(database.addStudent(&b));
-    EXPECT_FALSE(database.addStudent(&a));
-    EXPECT_FALSE(database.addStudent(&b));
+    EXPECT_TRUE(database.addStudent(Aname, Alastname, Aaddress, Acity, Abirthday, Apesel, Agender, AindexNumber, Afaculty, AfieldOfStudy, AcurrentSemester));
+    EXPECT_TRUE(database.addStudent(Bname, Blastname, Baddress, Bcity, Bbirthday, Bpesel, Bgender, BindexNumber, Bfaculty, BfieldOfStudy, BcurrentSemester));
+    EXPECT_FALSE(database.addStudent(Aname, Alastname, Aaddress, Acity, Abirthday, Apesel, Agender, AindexNumber, Afaculty, AfieldOfStudy, AcurrentSemester));
+    EXPECT_FALSE(database.addStudent(Bname, Blastname, Baddress, Bcity, Bbirthday, Bpesel, Bgender, BindexNumber, Bfaculty, BfieldOfStudy, BcurrentSemester));
 }
 
 TEST_F(DatabaseClassTest, findStudent) {
-    database.addStudent(&a);
-    database.addStudent(&b);
-    EXPECT_EQ(database.findStudent("012345678901"), a.toString());
-    EXPECT_EQ(database.findStudent("012345678909"), b.toString());
-    EXPECT_EQ(database.findStudent("012345678902"), "Student not found");
+    database.addStudent(Aname, Alastname, Aaddress, Acity, Abirthday, Apesel, Agender, AindexNumber, Afaculty, AfieldOfStudy, AcurrentSemester);
+    database.addStudent(Bname, Blastname, Baddress, Bcity, Bbirthday, Bpesel, Bgender, BindexNumber, Bfaculty, BfieldOfStudy, BcurrentSemester);
+    EXPECT_EQ(database.findStudent("01234567890")->getCity(), "CITY");
+    EXPECT_EQ(database.findStudent("01234567899")->getCity(), "CITY2");
+    EXPECT_EQ(database.findStudent("01234567892"), nullptr);
 }
 
 TEST_F(DatabaseClassTest, editStudent) {
-    database.addStudent(&a);
-    database.addStudent(&b);
+    //database.addStudent(&a);
+    //database.addStudent(&b);
     EXPECT_TRUE(database.editStudent("012345678901", "11111111111"));
     EXPECT_TRUE(database.editStudent("012345678909", "22222222222"));
     EXPECT_TRUE(database.editStudent("11111111111", "11111111111"));
     EXPECT_FALSE(database.editStudent("1111111111", "22222222222"));
 }
+
