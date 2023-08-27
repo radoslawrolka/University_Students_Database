@@ -1,7 +1,3 @@
-//
-// Created by Rad on 24.08.2023.
-//
-
 #ifndef UNIVERSITY_STUDENTS_DATABASE_DATABASE_H
 #define UNIVERSITY_STUDENTS_DATABASE_DATABASE_H
 
@@ -10,6 +6,7 @@
 #include <vector>
 #include <memory>
 #include <unordered_map>
+#include <fstream>
 
 class Database {
 public:
@@ -20,19 +17,21 @@ public:
                     const std::string& city,
                     const std::string& birthday,
                     const std::string& pesel,
-                    Gender gender,
+                    const std::string& gender,
                     const std::string& indexNumber,
                     const std::string& faculty,
                     const std::string& fieldOfStudy,
-                    int currentSemester);
+                    const std::string& currentSemester);
     std::shared_ptr<Student> findStudent(const std::string& key);
     bool removeStudent(const std::string& key);
 
+    bool saveToFile(const std::string& filename);
+    bool openFromFile(const std::string& filename);
 //private:
     std::vector<std::shared_ptr<Student>> students_ = {};
     std::unordered_map<std::string, std::shared_ptr<Student>> PeselMap_ = {};
     std::unordered_map<std::string, std::shared_ptr<Student>> IndexMap_ = {};
-
+    std::fstream file;
 };
 
 
