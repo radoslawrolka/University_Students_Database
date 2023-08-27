@@ -1,5 +1,3 @@
-#include "Database.h"
-#include "Student.h"
 #include "UserClient.h"
 #include "AdminClient.h"
 
@@ -7,24 +5,26 @@
 #include <fstream>
 
 void greet();
-void login(UserClient*& user);
+UserClient* login();
 
 int main() {
-    UserClient* user;
-
     greet();
-    login(user);
+    UserClient* user = login();
     user->run();
-    user->close();
+    delete user;
     return 0;
 }
+
+
+
+
 
 void greet() {
     std::cout << "Welcome to the University Students Database." << std::endl;
     std::cout << R"(Write "login" to login or "exit" to exit.)" << std::endl;
     std::string command;
     while (command != "login" && command != "exit") {
-        std::cin >> command;
+        getline(std::cin, command);
         if (command == "exit") {
             exit(0);
         }
@@ -35,28 +35,61 @@ void greet() {
     }
 }
 
-void login(UserClient*& user) {
-    std::string login;
-    std::string password;
-    while (true) {
-        std::cout << "Login: ";
-        std::cin >> login;
-        std::cout << "Password: ";
-        std::cin >> password;
-        if (login == "admin" && password == "admin") {
-            user = new AdminClient();
-            break;
+UserClient* login() {
+    std::ifstream file;
+    file.open("../resources/login.password");
+    if (!file.is_open()) {
+        std::cout << "System Error (No user data file)" << std::endl;
+        exit(1);
+    }
+    else {
+        int counter = 0;
+        std::string line;
+        while (std::getline(file, line)) {
+            counter++;
         }
-        else if (login == "user" && password == "user") {
-            user = new UserClient();
-            break;
+
+        std::string data[counter][3];
+        counter = 0;
+        file.clear();
+        file.seekg(std::ios::beg);
+        std::getline(file, line);
+        while (std::getline(file, line)) {
+            size_t pos = 0;
+            pos = line.find(";");
+            data[counter][0] = std::move(line.substr(0, pos));
+            line.erase(0, pos + 1);
+            pos = line.find(';');
+            data[counter][1] = line.substr(0, pos);
+            line.erase(0, pos + 1);
+            data[counter][2] = line;
+            counter++;
         }
-        else {
+        file.close();
+        std::string login;
+        std::string password;
+        while (true) {
+            std::cout << "Login:";
+            getline(std::cin, login);
+            std::cout << "Password:";
+            getline(std::cin, password);
+
+            for (int i = 0; i < counter; i++) {
+                if (login == data[i][0] && password == data[i][1]) {
+                    if (data[i][2] == "admin") {
+                        std::cout<<"Hello "<<login<<"! (admin account)"<<std::endl;
+                        return new AdminClient();
+                    }
+                    else if (data[i][2] == "user") {
+                        std::cout<<"Hello "<<login<<"! (user account)"<<std::endl;
+                        return new UserClient();
+                    }
+                }
+            }
             std::cout << "Wrong login or password." << std::endl;
             std::cout << "Press Y to try again or N to exit." << std::endl;
-            char c;
-            std::cin >> c;
-            if (c == 'N' || c == 'n') {
+            std::getline(std::cin, line);
+            if (line == "N" || line == "n") {
                 exit(0);
             }
         }
