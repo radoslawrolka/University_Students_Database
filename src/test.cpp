@@ -2,6 +2,7 @@
 
 #include "Student.h"
 #include "Database.h"
+#include "Interface.h"
 
 // Demonstrate some basic assertions.
 TEST(HelloTest, BasicAssertions) {
@@ -24,7 +25,7 @@ struct StudentClassTest : ::testing::Test {
                               "012345",
                               "FACULTY",
                               "FIELD",
-                              1);
+                              "1");
 };
 
 struct DatabaseClassTest : ::testing::Test {
@@ -35,11 +36,11 @@ struct DatabaseClassTest : ::testing::Test {
     std::string Acity = "CITY";
     std::string Abirthday = "yyyyMMdd";
     std::string Apesel = "01234567890";
-    Gender Agender = Gender::Male;
+    std::string Agender = "Male";
     std::string AindexNumber = "012345";
     std::string Afaculty = "FACULTY";
     std::string AfieldOfStudy = "FIELD";
-    int AcurrentSemester = 1;
+    std::string AcurrentSemester = "1";
 
     std::string Bname = "NAME2";
     std::string Blastname = "LASTNAME2";
@@ -47,13 +48,17 @@ struct DatabaseClassTest : ::testing::Test {
     std::string Bcity = "CITY2";
     std::string Bbirthday = "YYYYmmDD";
     std::string Bpesel = "01234567899";
-    Gender Bgender = Gender::Female;
+    std::string Bgender = "Female";
     std::string BindexNumber = "012346";
     std::string Bfaculty = "FACULTY2";
     std::string BfieldOfStudy = "FIELD2";
-    int BcurrentSemester = 3;
+    std::string BcurrentSemester = "3";
 };
 
+struct InterfaceClassTest : ::testing::Test {
+    Interface interface;
+
+};
 
 TEST_F(StudentClassTest, getData) {
     EXPECT_EQ(student.getName(), "NAME");
@@ -90,7 +95,7 @@ TEST_F(StudentClassTest, changeData) {
     EXPECT_EQ(student.getFaculty(), "NEWFACULTY");
     student.setFieldOfStudy("NEWFIELD");
     EXPECT_EQ(student.getFieldOfStudy(), "NEWFIELD");
-    student.setCurrentSemester(2);
+    student.setCurrentSemester("2");
     EXPECT_EQ(student.getCurrentSemester(), "2");
 }
 
@@ -123,4 +128,3 @@ TEST_F(DatabaseClassTest, removeStudent) {
     EXPECT_FALSE(database.removeStudent("01234567892"));
     EXPECT_FALSE(database.removeStudent("01234567890"));
 }
-

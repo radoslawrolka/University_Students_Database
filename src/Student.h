@@ -21,7 +21,7 @@ public:
             std::string indexNumber,
             std::string faculty,
             std::string fieldOfStudy,
-            int currentSemester);
+            std::string currentSemester);
     std::string getName();
     std::string getLastName();
     std::string getAddress();
@@ -32,7 +32,7 @@ public:
     std::string getIndexNumber();
     std::string getFaculty();
     std::string getFieldOfStudy();
-    [[nodiscard]] std::string getCurrentSemester() const;
+    std::string getCurrentSemester();
 
     void setName(const std::string& name);
     void setLastName(const std::string& lastName);
@@ -44,7 +44,7 @@ public:
     void setIndexNumber(const std::string& indexNumber);
     void setFaculty(const std::string& faculty);
     void setFieldOfStudy(const std::string& fieldOfStudy);
-    void setCurrentSemester(int currentSemester);
+    void setCurrentSemester(const std::string& currentSemester);
 
 
     std::string toString();
@@ -59,7 +59,7 @@ private:
     std::string indexNumber_;
     std::string faculty_;
     std::string fieldOfStudy_;
-    int currentSemester_;
+    std::string currentSemester_;
 };
 
 

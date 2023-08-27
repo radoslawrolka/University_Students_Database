@@ -13,7 +13,7 @@ Student::Student(std::string name,
                  std::string indexNumber,
                  std::string faculty,
                  std::string fieldOfStudy,
-                 int currentSemester)
+                 std::string currentSemester)
     : name_(std::move(name))
     , lastName_(std::move(lastName))
     , address_(std::move(address))
@@ -24,7 +24,7 @@ Student::Student(std::string name,
     , indexNumber_(std::move(indexNumber))
     , faculty_(std::move(faculty))
     , fieldOfStudy_(std::move(fieldOfStudy))
-    , currentSemester_(currentSemester)
+    , currentSemester_(std::move(currentSemester))
 {}
 
 std::string Student::getName() {
@@ -61,8 +61,8 @@ std::string Student::getFaculty() {
 std::string Student::getFieldOfStudy() {
     return fieldOfStudy_;
 }
-std::string Student::getCurrentSemester() const {
-    return std::to_string(currentSemester_);
+std::string Student::getCurrentSemester() {
+    return currentSemester_;
 }
 
 void Student::setName(const std::string& name) {
@@ -95,12 +95,12 @@ void Student::setFaculty(const std::string& faculty) {
 void Student::setFieldOfStudy(const std::string& fieldOfStudy) {
     fieldOfStudy_ = fieldOfStudy;
 }
-void Student::setCurrentSemester(int currentSemester) {
+void Student::setCurrentSemester(const std::string& currentSemester) {
     currentSemester_ = currentSemester;
 }
 
 std::string Student::toString() {
     return name_ + " " + lastName_ + " " + pesel_ + " " + birthday_+ " " + getGender() + "\n" +
            address_ + " " + city_ + "\n" +
-           indexNumber_ + " " + faculty_ + " " + fieldOfStudy_ + " " + std::to_string(currentSemester_);
+           indexNumber_ + " " + faculty_ + " " + fieldOfStudy_ + " " + currentSemester_;
 }
