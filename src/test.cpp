@@ -115,12 +115,12 @@ TEST_F(DatabaseClassTest, findStudent) {
     EXPECT_EQ(database.findStudent("01234567892"), nullptr);
 }
 
-TEST_F(DatabaseClassTest, editStudent) {
-    //database.addStudent(&a);
-    //database.addStudent(&b);
-    EXPECT_TRUE(database.editStudent("012345678901", "11111111111"));
-    EXPECT_TRUE(database.editStudent("012345678909", "22222222222"));
-    EXPECT_TRUE(database.editStudent("11111111111", "11111111111"));
-    EXPECT_FALSE(database.editStudent("1111111111", "22222222222"));
+TEST_F(DatabaseClassTest, removeStudent) {
+    database.addStudent(Aname, Alastname, Aaddress, Acity, Abirthday, Apesel, Agender, AindexNumber, Afaculty, AfieldOfStudy, AcurrentSemester);
+    database.addStudent(Bname, Blastname, Baddress, Bcity, Bbirthday, Bpesel, Bgender, BindexNumber, Bfaculty, BfieldOfStudy, BcurrentSemester);
+    EXPECT_TRUE(database.removeStudent("01234567890"));
+    EXPECT_TRUE(database.removeStudent("01234567899"));
+    EXPECT_FALSE(database.removeStudent("01234567892"));
+    EXPECT_FALSE(database.removeStudent("01234567890"));
 }
 
