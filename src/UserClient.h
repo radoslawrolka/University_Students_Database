@@ -15,7 +15,7 @@ public:
     virtual void showMenu();
     virtual bool addStudent();
     virtual bool editStudent();
-    //virtual void findStudent();
+    virtual bool findStudent();
     //virtual void saveToFile();
     //virtual void openFromFile();
 };

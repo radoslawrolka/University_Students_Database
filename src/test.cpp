@@ -145,3 +145,15 @@ TEST_F(UserClientClassTest, editStudent) {
     std::cin.rdbuf(iss.rdbuf());
     EXPECT_TRUE(userClient.editStudent());
 }
+
+TEST_F(UserClientClassTest, findstudent) {
+    std::string input = "NAME\nLASTNAME\nST. STREET HOMENUM\nCITY\n1999-01-01\n01234567890\nMale\n012345\nFACULTY\nFIELD\n1\n";
+    std::istringstream iss(input);
+    std::cin.rdbuf(iss.rdbuf());
+    EXPECT_TRUE(userClient.addStudent());
+    input = "01234567890\n111111";
+    iss = std::istringstream(input);
+    std::cin.rdbuf(iss.rdbuf());
+    EXPECT_TRUE(userClient.findStudent());
+    EXPECT_FALSE(userClient.findStudent());
+}

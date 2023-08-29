@@ -3,12 +3,12 @@
 bool validDate(std::string date);
 
 void UserClient::run() {
-    showMenu();
+
     while (true) {
-        char choice;
-        std::cin >> choice;
-        std::cin.ignore(1000, '\n');
-        switch (choice) {
+        showMenu();
+        std::string choice;
+        std::getline(std::cin, choice);
+        switch (choice[0]) {
             case 'h':
                 showMenu();
                 break;
@@ -18,10 +18,10 @@ void UserClient::run() {
             case '2':
                 editStudent();
                 break;
-                /*
             case '3':
                 findStudent();
                 break;
+                /*
             case '4':
                 saveToFile();
                 break;
@@ -176,6 +176,10 @@ bool UserClient::editStudent() {
     std::cout << "Enter PESEL or IndexNumber of student to edit: ";
     getline(std::cin, key);
     std::shared_ptr<Student> student = database_.findStudent(key);
+    if (!student) {
+        std::cout << "Student not found" << std::endl;
+        return false;
+    }
     std::cout << "[Press 'Enter' to ommit editing data field]" << std::endl;
     std::cout << "Current name: " << student->getName() << "\nNew name:";
     getline(std::cin, data);
@@ -202,7 +206,6 @@ bool UserClient::editStudent() {
         getline(std::cin, data);
         if (!data.empty()) {
             if (validDate(data)) {
-                data = data.substr(0, 4) + data.substr(5, 2) + data.substr(8, 2);
                 student->setBirthday(data);
                 break;
             } else {
@@ -254,4 +257,19 @@ bool UserClient::editStudent() {
         student->setCurrentSemester(data);
     }
     return true;
+}
+
+bool UserClient::findStudent() {
+    std::string key;
+    std::cout << "Enter PESEL or IndexNumber of student to find: ";
+    getline(std::cin, key);
+    std::shared_ptr<Student> student = database_.findStudent(key);
+    if (student) {
+        std::cout << student->toString() << std::endl;
+        return true;
+    }
+    else {
+        std::cout << "Student not found" << std::endl;
+        return false;
+    }
 }
