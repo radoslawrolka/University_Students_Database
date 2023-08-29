@@ -7,6 +7,7 @@ void UserClient::run() {
     while (true) {
         char choice;
         std::cin >> choice;
+        std::cin.ignore(1000, '\n');
         switch (choice) {
             case 'h':
                 showMenu();
@@ -14,10 +15,10 @@ void UserClient::run() {
             case '1':
                 addStudent();
                 break;
-                /*
             case '2':
                 editStudent();
                 break;
+                /*
             case '3':
                 findStudent();
                 break;
@@ -70,10 +71,7 @@ bool UserClient::addStudent() {
     getline(std::cin, city);
     std::cout<<"Enter birthday [YYYY-MM-DD]: ";
     getline(std::cin, birthday);
-    if (validDate(birthday)) {
-        birthday = birthday.substr(0, 4) + birthday.substr(5, 2) + birthday.substr(8, 2);
-    }
-    else {
+    if (!validDate(birthday)) {
         std::cout << "Invalid date" << std::endl;
         return false;
     }
@@ -117,7 +115,7 @@ bool validDate(std::string date) {
     if (date[0] != '1' && date[0] != '2') {
         return false;
     }
-    if (date[0] == 1) {
+    if (date[0] == '1') {
         if (date[1] != '9') {
             return false;
         }
@@ -125,7 +123,7 @@ bool validDate(std::string date) {
             return false;
         }
     }
-    if (date[0] == 2) {
+    if (date[0] == '2') {
         if (date[1] != '0') {
             return false;
         }
@@ -160,7 +158,7 @@ bool validDate(std::string date) {
         }
     }
     if (date[8] == '2') {
-        if (date[9] != '0' && date[9] != '1' && date[9] != '2' && date[9] != '3') {
+        if (date[9] < '0' || date[9] > '9') {
             return false;
         }
     }
@@ -168,6 +166,92 @@ bool validDate(std::string date) {
         if (date[9] != '0' && date[9] != '1') {
             return false;
         }
+    }
+    return true;
+}
+
+bool UserClient::editStudent() {
+    std::string key;
+    std::string data;
+    std::cout << "Enter PESEL or IndexNumber of student to edit: ";
+    getline(std::cin, key);
+    std::shared_ptr<Student> student = database_.findStudent(key);
+    std::cout << "[Press 'Enter' to ommit editing data field]" << std::endl;
+    std::cout << "Current name: " << student->getName() << "\nNew name:";
+    getline(std::cin, data);
+    if (!data.empty()) {
+        student->setName(data);
+    }
+    std::cout << "Current lastname: " << student->getLastName() << "\nNew lastname:";
+    getline(std::cin, data);
+    if (!data.empty()) {
+        student->setLastName(data);
+    }
+    std::cout << "Current address: " << student->getAddress() << "\nNew address:";
+    getline(std::cin, data);
+    if (!data.empty()) {
+        student->setAddress(data);
+    }
+    std::cout << "Current city: " << student->getCity() << "\nNew city:";
+    getline(std::cin, data);
+    if (!data.empty()) {
+        student->setCity(data);
+    }
+    while (true) {
+        std::cout << "Current birthday: " << student->getBirthday() << "\nNew birthday:";
+        getline(std::cin, data);
+        if (!data.empty()) {
+            if (validDate(data)) {
+                data = data.substr(0, 4) + data.substr(5, 2) + data.substr(8, 2);
+                student->setBirthday(data);
+                break;
+            } else {
+                std::cout << "Invalid date" << std::endl;
+            }
+        }
+        else {
+            break;
+        }
+    }
+    while (true) {
+        std::cout << "Current pesel: " << student->getBirthday() << "\nNew pesel:";
+        getline(std::cin, data);
+        if (!data.empty()) {
+            if (data.length() == 11) {
+                student->setPesel(data);
+                break;
+            } else {
+                std::cout << "Invalid pesel" << std::endl;
+            }
+        }
+        else {
+            break;
+        }
+    }
+    std::cout << "Current gender: " << student->getGender() << "\nNew gender:";
+    getline(std::cin, data);
+    if (!data.empty()) {
+        student->setGender(data);
+    }
+    std::cout << "Current index number: " << student->getIndexNumber() << "\nNew index number:";
+    getline(std::cin, data);
+    if (!data.empty()) {
+        student->setIndexNumber(data);
+    }
+    std::cout << "Current faculty: " << student->getFaculty() << "\nNew faculty:";
+    getline(std::cin, data);
+    if (!data.empty()) {
+        student->setFaculty(data);
+    }
+    std::cout << "Current field of study: " << student->getFieldOfStudy() << "\nNew field of study:";
+    getline(std::cin, data);
+    if (!data.empty()) {
+        student->setFieldOfStudy(data);
+    }
+    std::cout << "Current semester: " << student->getCurrentSemester() << "\nNew semester:";
+    getline(std::cin, data);
+    if (!data.empty()) {
+        student->setCurrentSemester(data);
     }
     return true;
 }

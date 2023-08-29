@@ -86,7 +86,7 @@ TEST_F(StudentClassTest, changeData) {
     EXPECT_EQ(student.getBirthday(), "newyyyyMMdd");
     student.setPesel("012345678902");
     EXPECT_EQ(student.getPesel(), "012345678902");
-    student.setGender(Gender::Female);
+    student.setGender("Female");
     EXPECT_EQ(student.getGender(), "Female");
     student.setIndexNumber("012346");
     EXPECT_EQ(student.getIndexNumber(), "012346");
@@ -133,4 +133,15 @@ TEST_F(UserClientClassTest, addStudent) {
     std::istringstream iss(input);
     std::cin.rdbuf(iss.rdbuf());
     EXPECT_TRUE(userClient.addStudent());
+}
+
+TEST_F(UserClientClassTest, editStudent) {
+    std::string input = "NAME\nLASTNAME\nST. STREET HOMENUM\nCITY\n1999-01-01\n01234567890\nMale\n012345\nFACULTY\nFIELD\n1\n";
+    std::istringstream iss(input);
+    std::cin.rdbuf(iss.rdbuf());
+    EXPECT_TRUE(userClient.addStudent());
+    input = "01234567890\n";
+    iss = std::istringstream(input);
+    std::cin.rdbuf(iss.rdbuf());
+    EXPECT_TRUE(userClient.editStudent());
 }

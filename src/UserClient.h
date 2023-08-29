@@ -14,7 +14,7 @@ public:
     Database database_;
     virtual void showMenu();
     virtual bool addStudent();
-    //virtual void editStudent();
+    virtual bool editStudent();
     //virtual void findStudent();
     //virtual void saveToFile();
     //virtual void openFromFile();

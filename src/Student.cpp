@@ -83,8 +83,16 @@ void Student::setBirthday(const std::string& birthday) {
 void Student::setPesel(const std::string& pesel) {
     pesel_ = pesel;
 }
-void Student::setGender(Gender gender) {
-    gender_ = gender;
+void Student::setGender(const std::string& gender) {
+    if (gender == "Male") {
+        gender_ = Gender::Male;
+    }
+    else if (gender == "Female") {
+    gender_ = Gender::Female;
+    }
+    else {
+        gender_ = Gender::Other;
+    }
 }
 void Student::setIndexNumber(const std::string& indexNumber) {
     indexNumber_ = indexNumber;

@@ -40,7 +40,7 @@ public:
     void setCity(const std::string& city);
     void setBirthday(const std::string& birthday);
     void setPesel(const std::string& pesel);
-    void setGender(Gender gender);
+    void setGender(const std::string& gender);
     void setIndexNumber(const std::string& indexNumber);
     void setFaculty(const std::string& faculty);
     void setFieldOfStudy(const std::string& fieldOfStudy);
