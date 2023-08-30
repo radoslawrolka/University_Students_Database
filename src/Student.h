@@ -3,11 +3,14 @@
 
 
 #include <string>
+
 enum Gender {
     Male,
     Female,
     Other
 };
+
+
 
 class Student {
 public:
@@ -45,7 +48,11 @@ public:
     void setFaculty(const std::string& faculty);
     void setFieldOfStudy(const std::string& fieldOfStudy);
     void setCurrentSemester(const std::string& currentSemester);
-
+    typedef void (Student::*setters)(const std::string&);
+    typedef std::string (Student::*getters)();
+    setters getSetter[11];
+    getters getGetter[11];
+    std::string settersName[11];
 
     std::string toString();
 private:

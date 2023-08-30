@@ -181,6 +181,15 @@ bool UserClient::editStudent() {
         return false;
     }
     std::cout << "[Press 'Enter' to ommit editing data field]" << std::endl;
+    for (int i = 0; i < 11; i++) {
+        std::cout << "Current " << student->settersName[i] << ": " << (student.get()->*student->getGetter[i])() << "\nNew " << student->settersName[i] << ":";
+        getline(std::cin, data);
+        if (!data.empty()) {
+            (student.get()->*student->getSetter[i])(data);
+        }
+    }
+    /*
+
     std::cout << "Current name: " << student->getName() << "\nNew name:";
     getline(std::cin, data);
     if (!data.empty()) {
@@ -256,6 +265,7 @@ bool UserClient::editStudent() {
     if (!data.empty()) {
         student->setCurrentSemester(data);
     }
+     */
     return true;
 }
 
