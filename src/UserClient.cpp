@@ -3,7 +3,6 @@
 bool validDate(std::string date);
 
 void UserClient::run() {
-
     while (true) {
         showMenu();
         std::string choice;
@@ -105,6 +104,49 @@ bool UserClient::addStudent() {
     }
 }
 
+bool UserClient::editStudent() {
+    std::string key;
+    std::string data;
+    std::cout << "Enter PESEL or IndexNumber of student to edit: ";
+    getline(std::cin, key);
+    std::shared_ptr<Student> student = database_.findStudent(key);
+    if (!student) {
+        std::cout << "Student not found" << std::endl;
+        return false;
+    }
+    std::cout << "[Press 'Enter' to ommit editing data field]" << std::endl;
+    for (int i = 0; i < sizeof(student->settersName)/sizeof(std::string); i++) {
+        while (true) {
+            std::cout << "Current " << student->settersName[i] << ": " << (student.get()->*student->getGetter[i])()
+                      << "\nNew " << student->settersName[i] << ":";
+            getline(std::cin, data);
+            if ((student.get()->*student->getValidator[i])(data)) {
+                (student.get()->*student->getSetter[i])(data);
+                break;
+            }
+            else {
+                std::cout << "Invalid " << student->settersName[i] << std::endl;
+            }
+        }
+    }
+    return true;
+}
+
+bool UserClient::findStudent() {
+    std::string key;
+    std::cout << "Enter PESEL or IndexNumber of student to find: ";
+    getline(std::cin, key);
+    std::shared_ptr<Student> student = database_.findStudent(key);
+    if (student) {
+        std::cout << student->toString() << std::endl;
+        return true;
+    }
+    else {
+        std::cout << "Student not found" << std::endl;
+        return false;
+    }
+}
+
 bool validDate(std::string date) {
     if (date.length() != 10) {
         return false;
@@ -168,108 +210,4 @@ bool validDate(std::string date) {
         }
     }
     return true;
-}
-
-bool UserClient::editStudent() {
-    std::string key;
-    std::string data;
-    std::cout << "Enter PESEL or IndexNumber of student to edit: ";
-    getline(std::cin, key);
-    std::shared_ptr<Student> student = database_.findStudent(key);
-    if (!student) {
-        std::cout << "Student not found" << std::endl;
-        return false;
-    }
-    std::cout << "[Press 'Enter' to ommit editing data field]" << std::endl;
-    std::cout << "Current name: " << student->getName() << "\nNew name:";
-    getline(std::cin, data);
-    if (!data.empty()) {
-        student->setName(data);
-    }
-    std::cout << "Current lastname: " << student->getLastName() << "\nNew lastname:";
-    getline(std::cin, data);
-    if (!data.empty()) {
-        student->setLastName(data);
-    }
-    std::cout << "Current address: " << student->getAddress() << "\nNew address:";
-    getline(std::cin, data);
-    if (!data.empty()) {
-        student->setAddress(data);
-    }
-    std::cout << "Current city: " << student->getCity() << "\nNew city:";
-    getline(std::cin, data);
-    if (!data.empty()) {
-        student->setCity(data);
-    }
-    while (true) {
-        std::cout << "Current birthday: " << student->getBirthday() << "\nNew birthday:";
-        getline(std::cin, data);
-        if (!data.empty()) {
-            if (validDate(data)) {
-                student->setBirthday(data);
-                break;
-            } else {
-                std::cout << "Invalid date" << std::endl;
-            }
-        }
-        else {
-            break;
-        }
-    }
-    while (true) {
-        std::cout << "Current pesel: " << student->getBirthday() << "\nNew pesel:";
-        getline(std::cin, data);
-        if (!data.empty()) {
-            if (data.length() == 11) {
-                student->setPesel(data);
-                break;
-            } else {
-                std::cout << "Invalid pesel" << std::endl;
-            }
-        }
-        else {
-            break;
-        }
-    }
-    std::cout << "Current gender: " << student->getGender() << "\nNew gender:";
-    getline(std::cin, data);
-    if (!data.empty()) {
-        student->setGender(data);
-    }
-    std::cout << "Current index number: " << student->getIndexNumber() << "\nNew index number:";
-    getline(std::cin, data);
-    if (!data.empty()) {
-        student->setIndexNumber(data);
-    }
-    std::cout << "Current faculty: " << student->getFaculty() << "\nNew faculty:";
-    getline(std::cin, data);
-    if (!data.empty()) {
-        student->setFaculty(data);
-    }
-    std::cout << "Current field of study: " << student->getFieldOfStudy() << "\nNew field of study:";
-    getline(std::cin, data);
-    if (!data.empty()) {
-        student->setFieldOfStudy(data);
-    }
-    std::cout << "Current semester: " << student->getCurrentSemester() << "\nNew semester:";
-    getline(std::cin, data);
-    if (!data.empty()) {
-        student->setCurrentSemester(data);
-    }
-    return true;
-}
-
-bool UserClient::findStudent() {
-    std::string key;
-    std::cout << "Enter PESEL or IndexNumber of student to find: ";
-    getline(std::cin, key);
-    std::shared_ptr<Student> student = database_.findStudent(key);
-    if (student) {
-        std::cout << student->toString() << std::endl;
-        return true;
-    }
-    else {
-        std::cout << "Student not found" << std::endl;
-        return false;
-    }
 }

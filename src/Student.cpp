@@ -25,6 +25,9 @@ Student::Student(std::string name,
     , faculty_(std::move(faculty))
     , fieldOfStudy_(std::move(fieldOfStudy))
     , currentSemester_(std::move(currentSemester))
+    , getSetter{&Student::setName, &Student::setLastName, &Student::setAddress, &Student::setCity, &Student::setBirthday, &Student::setPesel, &Student::setGender, &Student::setIndexNumber, &Student::setFaculty, &Student::setFieldOfStudy, &Student::setCurrentSemester}
+    , getGetter{&Student::getName, &Student::getLastName, &Student::getAddress, &Student::getCity, &Student::getBirthday, &Student::getPesel, &Student::getGender, &Student::getIndexNumber, &Student::getFaculty, &Student::getFieldOfStudy, &Student::getCurrentSemester}
+    , settersName{"Name", "Lastname", "Address", "City", "Birthday", "PESEL", "Gender", "Index number", "Faculty", "Field of study", "Current semester"}
 {}
 
 std::string Student::getName() {
