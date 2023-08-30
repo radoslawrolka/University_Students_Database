@@ -114,6 +114,9 @@ bool UserClient::editStudent() {
     }
     std::cout << "[Press 'Enter' to ommit editing data field]" << std::endl;
     for (int i = 0; i < sizeof(student->settersName)/sizeof(std::string); i++) {
+        if (student->settersName[i] == "Pesel" || student->settersName[i] == "IndexNumber") {
+            continue;
+        }
         while (true) {
             std::cout << "Current " << student->settersName[i] << ": " << (student.get()->*student->getGetter[i])()
                       << "\nNew " << student->settersName[i] << ":";
