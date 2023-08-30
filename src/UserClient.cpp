@@ -8,6 +8,9 @@ void UserClient::run() {
         std::string choice;
         std::getline(std::cin, choice);
         switch (choice[0]) {
+            case 'x':
+                database_.openFromFile("output");
+                break;
             case 'h':
                 showMenu();
                 break;
@@ -20,10 +23,10 @@ void UserClient::run() {
             case '3':
                 findStudent();
                 break;
-                /*
             case '4':
                 saveToFile();
                 break;
+                /*
             case '5':
                 openFromFile();
                 break;
@@ -120,7 +123,10 @@ bool UserClient::editStudent() {
             std::cout << "Current " << student->settersName[i] << ": " << (student.get()->*student->getGetter[i])()
                       << "\nNew " << student->settersName[i] << ":";
             getline(std::cin, data);
-            if ((student.get()->*student->getValidator[i])(data)) {
+            if (data.empty()) {
+                break;
+            }
+            else if ((student.get()->*student->getValidator[i])(data)) {
                 (student.get()->*student->getSetter[i])(data);
                 break;
             }
@@ -143,6 +149,20 @@ bool UserClient::findStudent() {
     }
     else {
         std::cout << "Student not found" << std::endl;
+        return false;
+    }
+}
+
+bool UserClient::saveToFile() {
+    std::cout << "Enter filename: ";
+    std::string filename;
+    getline(std::cin, filename);
+    if (database_.saveToFile(filename)) {
+        std::cout << "Database saved" << std::endl;
+        return true;
+    }
+    else {
+        std::cout << "ERROR: Cannot save database" << std::endl;
         return false;
     }
 }

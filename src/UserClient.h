@@ -16,8 +16,8 @@ public:
     virtual bool addStudent();
     virtual bool editStudent();
     virtual bool findStudent();
-    //virtual void saveToFile();
-    //virtual void openFromFile();
+    virtual bool saveToFile();
+    //virtual bool openFromFile();
 };
 
 #endif //UNIVERSITY_STUDENTS_DATABASE_USERCLIENT_H

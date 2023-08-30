@@ -72,7 +72,7 @@ bool Database::removeStudent(const std::string& key) {
 }
 
 bool Database::saveToFile(const std::string& filename) {
-    file.open("../resources/"+filename, std::ios::out);
+    file.open("../resources/"+filename+".db", std::ios::out);
     if (file.is_open()) {
         file << "#Name;Lastname;Address;City;Birthday;Pesel;Gender;IndexNumber;Faculty;FieldOfStudy;CurrentSemester\n";
         for (auto& student : students_) {
@@ -97,7 +97,7 @@ bool Database::saveToFile(const std::string& filename) {
 }
 
 bool Database::openFromFile(const std::string &filename) {
-    file.open("../resources/"+filename, std::ios::in);
+    file.open("../resources/"+filename+".db", std::ios::in);
     if (file.is_open()) {
         students_.clear();
         PeselMap_.clear();

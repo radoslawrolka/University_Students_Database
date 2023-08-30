@@ -146,7 +146,7 @@ TEST_F(UserClientClassTest, editStudent) {
     EXPECT_TRUE(userClient.editStudent());
 }
 
-TEST_F(UserClientClassTest, findstudent) {
+TEST_F(UserClientClassTest, findStudent) {
     std::string input = "NAME\nLASTNAME\nST. STREET HOMENUM\nCITY\n1999-01-01\n01234567890\nMale\n012345\nFACULTY\nFIELD\n1\n";
     std::istringstream iss(input);
     std::cin.rdbuf(iss.rdbuf());
@@ -156,4 +156,16 @@ TEST_F(UserClientClassTest, findstudent) {
     std::cin.rdbuf(iss.rdbuf());
     EXPECT_TRUE(userClient.findStudent());
     EXPECT_FALSE(userClient.findStudent());
+}
+
+TEST_F(UserClientClassTest, saveToFile) {
+    std::string input = "NAME\nLASTNAME\nST. STREET HOMENUM\nCITY\n1999-01-01\n01234567890\nMale\n012345\nFACULTY\nFIELD\n1\n";
+    std::istringstream iss(input);
+    std::cin.rdbuf(iss.rdbuf());
+    EXPECT_TRUE(userClient.addStudent());
+    input = "test.db";
+    iss = std::istringstream(input);
+    std::cin.rdbuf(iss.rdbuf());
+    EXPECT_TRUE(userClient.saveToFile());
+    std::remove("test.db");
 }
