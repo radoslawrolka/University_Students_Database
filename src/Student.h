@@ -3,13 +3,13 @@
 
 
 #include <string>
+#include <utility>
 
 enum Gender {
     Male,
     Female,
     Other
 };
-
 
 
 class Student {
@@ -49,18 +49,10 @@ public:
     void setFieldOfStudy(const std::string& fieldOfStudy);
     void setCurrentSemester(const std::string& currentSemester);
 
-    bool valid(const std::string& data);
-    bool validDate(const std::string& data);
-    bool validPesel(const std::string& data);
-    bool validIndexNumber(const std::string& data);
-
     typedef void (Student::*setters)(const std::string&);
     typedef std::string (Student::*getters)();
-    typedef bool (Student::*validators)(const std::string&);
     setters getSetter[11];
     getters getGetter[11];
-    std::string settersName[11];
-    validators getValidator[11];
 
     std::string toString();
 private:

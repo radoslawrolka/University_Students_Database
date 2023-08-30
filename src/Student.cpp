@@ -1,8 +1,5 @@
 #include "Student.h"
 
-#include <string>
-#include <utility>
-
 Student::Student(std::string name,
                  std::string lastName,
                  std::string address,
@@ -27,8 +24,6 @@ Student::Student(std::string name,
     , currentSemester_(std::move(currentSemester))
     , getSetter{&Student::setName, &Student::setLastName, &Student::setAddress, &Student::setCity, &Student::setBirthday, &Student::setPesel, &Student::setGender, &Student::setIndexNumber, &Student::setFaculty, &Student::setFieldOfStudy, &Student::setCurrentSemester}
     , getGetter{&Student::getName, &Student::getLastName, &Student::getAddress, &Student::getCity, &Student::getBirthday, &Student::getPesel, &Student::getGender, &Student::getIndexNumber, &Student::getFaculty, &Student::getFieldOfStudy, &Student::getCurrentSemester}
-    , settersName{"Name", "Lastname", "Address", "City", "Birthday", "PESEL", "Gender", "Index number", "Faculty", "Field of study", "Current semester"}
-    , getValidator{&Student::valid, &Student::valid, &Student::valid, &Student::valid, &Student::validDate, &Student::validPesel, &Student::valid, &Student::validIndexNumber, &Student::valid, &Student::valid, &Student::valid}
 {}
 
 std::string Student::getName() {
@@ -109,83 +104,6 @@ void Student::setFieldOfStudy(const std::string& fieldOfStudy) {
 }
 void Student::setCurrentSemester(const std::string& currentSemester) {
     currentSemester_ = currentSemester;
-}
-
-bool Student::valid(const std::string& data) {
-    return true;
-}
-
-bool Student::validDate(const std::string &date) {
-    if (date.length() != 10) {
-        return false;
-    }
-    if (date[4] != '-' || date[7] != '-') {
-        return false;
-    }
-    if (date[0] != '1' && date[0] != '2') {
-        return false;
-    }
-    if (date[0] == '1') {
-        if (date[1] != '9') {
-            return false;
-        }
-        if (date[2] < '5' || date[2] > '9') {
-            return false;
-        }
-    }
-    if (date[0] == '2') {
-        if (date[1] != '0') {
-            return false;
-        }
-        if (date[2] != '0' && date[2] != '1') {
-            return false;
-        }
-    }
-    if (date[5] != '0' && date[5] != '1') {
-        return false;
-    }
-    if (date[5] == '0') {
-        if (date[6] < '1' || date[6] > '9') {
-            return false;
-        }
-    }
-    if (date[5] == '1') {
-        if (date[6] != '0' && date[6] != '1' && date[6] != '2') {
-            return false;
-        }
-    }
-    if (date[8] != '0' && date[8] != '1' && date[8] != '2' && date[8] != '3') {
-        return false;
-    }
-    if (date[8] == '0') {
-        if (date[9] < '1' || date[9] > '9') {
-            return false;
-        }
-    }
-    if (date[8] == '1') {
-        if (date[9] < '0' || date[9] > '9') {
-            return false;
-        }
-    }
-    if (date[8] == '2') {
-        if (date[9] < '0' || date[9] > '9') {
-            return false;
-        }
-    }
-    if (date[8] == '3') {
-        if (date[9] != '0' && date[9] != '1') {
-            return false;
-        }
-    }
-    return true;
-}
-
-bool Student::validPesel(const std::string &data) {
-    return data.length() == 11;
-}
-
-bool Student::validIndexNumber(const std::string &data) {
-    return data.length() == 6;
 }
 
 std::string Student::toString() {

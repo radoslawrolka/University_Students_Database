@@ -1,8 +1,5 @@
 #include "Database.h"
 
-#include <memory>
-#include <iostream>
-
 Gender toGender(const std::string& gender) {
     if (gender == "Male") return Gender::Male;
     if (gender == "Female") return Gender::Female;
@@ -105,15 +102,23 @@ bool Database::openFromFile(const std::string &filename) {
         std::string line;
         std::string token[11];
         std::getline(file, line);
+        int counter = 1;
         while (std::getline(file, line)) {
-            size_t pos = 0;
+            counter++;
+            std::istringstream ss(line);
             int i = 0;
-            while ((pos = line.find(';')) != std::string::npos) {
-                token[i] = line.substr(0, pos);
-                line.erase(0, pos + 1);
-                i++;
+            while(std::getline(ss, token[i++], ';')) {
             }
-            addStudent(token[0], token[1], token[2], token[3], token[4], token[5], token[6], token[7], token[8], token[9], token[10]);
+            if (token[10].empty()) {
+                SetConsoleTextAttribute( hOut,FOREGROUND_RED );
+                std::cout << "ERROR on line " << counter << std::endl;
+                continue;
+            }
+            if (!addStudent(token[0], token[1], token[2], token[3], token[4], token[5], token[6], token[7], token[8], token[9], token[10])) {
+                SetConsoleTextAttribute( hOut,FOREGROUND_RED );
+                std::cout << "ERROR on line " << counter << std::endl;
+                continue;
+            }
         }
         file.close();
         return true;

@@ -7,6 +7,10 @@
 #include <memory>
 #include <unordered_map>
 #include <fstream>
+#include <sstream>
+#include <iostream>
+#include <windows.h>
+#include <cstdlib>
 
 class Database {
 public:
@@ -29,6 +33,7 @@ public:
     bool openFromFile(const std::string& filename);
     ~Database();
 private:
+    HANDLE hOut = GetStdHandle( STD_OUTPUT_HANDLE );
     std::vector<std::shared_ptr<Student>> students_ = {};
     std::unordered_map<std::string, std::shared_ptr<Student>> PeselMap_ = {};
     std::unordered_map<std::string, std::shared_ptr<Student>> IndexMap_ = {};
