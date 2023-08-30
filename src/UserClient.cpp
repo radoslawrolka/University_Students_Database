@@ -8,9 +8,6 @@ void UserClient::run() {
         std::string choice;
         std::getline(std::cin, choice);
         switch (choice[0]) {
-            case 'x':
-                database_.openFromFile("output");
-                break;
             case 'h':
                 showMenu();
                 break;
@@ -26,13 +23,11 @@ void UserClient::run() {
             case '4':
                 saveToFile();
                 break;
-                /*
             case '5':
                 openFromFile();
                 break;
             case '0':
                 return;
-                 */
             default:
                 std::cout << "Wrong choice, press 'h' to show actions" << std::endl;
                 break;
@@ -163,6 +158,20 @@ bool UserClient::saveToFile() {
     }
     else {
         std::cout << "ERROR: Cannot save database" << std::endl;
+        return false;
+    }
+}
+
+bool UserClient::openFromFile() {
+    std::cout << "Enter filename: ";
+    std::string filename;
+    getline(std::cin, filename);
+    if (database_.openFromFile(filename)) {
+        std::cout << "Database loaded" << std::endl;
+        return true;
+    }
+    else {
+        std::cout << "ERROR: Cannot load database" << std::endl;
         return false;
     }
 }

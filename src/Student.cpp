@@ -112,7 +112,7 @@ void Student::setCurrentSemester(const std::string& currentSemester) {
 }
 
 bool Student::valid(const std::string& data) {
-    return !data.empty();
+    return true;
 }
 
 bool Student::validDate(const std::string &date) {

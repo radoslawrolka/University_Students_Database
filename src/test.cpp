@@ -163,9 +163,17 @@ TEST_F(UserClientClassTest, saveToFile) {
     std::istringstream iss(input);
     std::cin.rdbuf(iss.rdbuf());
     EXPECT_TRUE(userClient.addStudent());
-    input = "test.db";
+    input = "test";
     iss = std::istringstream(input);
     std::cin.rdbuf(iss.rdbuf());
     EXPECT_TRUE(userClient.saveToFile());
-    std::remove("test.db");
+}
+
+TEST_F(UserClientClassTest, openFromFile) {
+    std::string input = "test\n012345";
+    std::istringstream iss(input);
+    std::cin.rdbuf(iss.rdbuf());
+    EXPECT_TRUE(userClient.openFromFile());
+    EXPECT_TRUE(userClient.findStudent());
+    std::remove("../resources/test.db");
 }
