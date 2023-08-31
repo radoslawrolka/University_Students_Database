@@ -128,6 +128,30 @@ bool Database::openFromFile(const std::string &filename) {
     }
 }
 
+bool Database::newQuery(const std::string data[9]) {
+    if (!query_.empty()) {
+        query_.clear();
+    }
+    for (const auto& student : students_) {
+        bool flag = true;
+        int j = 0;
+        for (int i=0; i<11; i++) {
+            if (i == 2 || i==5 || i==7) {
+                continue;
+            }
+            if ((student.get()->*student->getGetter[i])() == data[j]) {
+                j++;
+                flag = false;
+                break;
+            }
+        }
+        if (flag) {
+            query_.push_back(student);
+        }
+    }
+    return true;
+}
+
 Database::~Database() {
     for (auto& student : students_) {
         student.reset();

@@ -31,10 +31,12 @@ void UserClient::run() {
             case '5':
                 openFromFile();
                 break;
-            /*
             case '6':
-                MakeQuery();
+                makeQuery();
                 break;
+                /*
+                 case '7':
+                updateQuery();
             */
              case '0':
                 return;
@@ -52,7 +54,8 @@ void UserClient::showMenu() {
     std::cout << "[3] - Find Student" << std::endl;
     std::cout << "[4] - Save Database to file" << std::endl;
     std::cout << "[5] - Open Database from file" << std::endl;
-    std::cout << "[6] - Make list with specifications" << std::endl;
+    std::cout << "[6] - Make new query" << std::endl;
+    std::cout << "[7] - Update existing query" << std::endl;
     std::cout << "[0] - Exit" << std::endl;
 }
 
@@ -180,6 +183,35 @@ bool UserClient::openFromFile() {
         std::cout << "ERROR: Cannot load database" << std::endl;
         SetConsoleTextAttribute( hOut, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED );
         return false;
+    }
+}
+
+bool UserClient::makeQuery() {
+    std::string data[9];
+    int j = 0;
+    for (int i=0; i<11; i++) {
+        if (i == 2 || i==5 || i==7) {
+            continue;
+        }
+        while (true) {
+            std::cout << "Enter " << settersName[i] << ":";
+            getline(std::cin, data[j]);
+            if ((getValidator[i])(data[j])) {
+                break;
+            }
+            else {
+                SetConsoleTextAttribute( hOut, FOREGROUND_RED );
+                std::cout << "Invalid " << settersName[i] << std::endl;
+                SetConsoleTextAttribute( hOut, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED );
+            }
+        }
+        j++;
+    }
+    if (database_.newQuery(data)) {
+        SetConsoleTextAttribute( hOut, FOREGROUND_GREEN);
+        std::cout << "Query created" << std::endl;
+        SetConsoleTextAttribute( hOut, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED );
+        return true;
     }
 }
 

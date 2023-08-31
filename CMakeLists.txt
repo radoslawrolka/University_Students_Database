@@ -13,6 +13,8 @@ add_executable(University_Students_Database
         src/UserClient.cpp
         src/UserClient.h
         src/AdminClient.cpp
+        src/AdminClient.h
+        src/AdminClient.cpp
         src/AdminClient.h)
 
 
@@ -34,6 +36,8 @@ add_executable(
         src/Student.cpp
         src/UserClient.cpp
         src/UserClient.h
+        src/AdminClient.cpp
+        src/AdminClient.h
         src/AdminClient.cpp
         src/AdminClient.h
 )

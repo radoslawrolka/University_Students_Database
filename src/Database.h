@@ -28,13 +28,14 @@ public:
                     const std::string& currentSemester);
     std::shared_ptr<Student> findStudent(const std::string& key);
     bool removeStudent(const std::string& key);
-
     bool saveToFile(const std::string& filename);
     bool openFromFile(const std::string& filename);
+    bool newQuery(const std::string data[9]);
     ~Database();
 private:
     HANDLE hOut = GetStdHandle( STD_OUTPUT_HANDLE );
     std::vector<std::shared_ptr<Student>> students_ = {};
+    std::vector<std::shared_ptr<Student>> query_ = {};
     std::unordered_map<std::string, std::shared_ptr<Student>> PeselMap_ = {};
     std::unordered_map<std::string, std::shared_ptr<Student>> IndexMap_ = {};
     std::fstream file;

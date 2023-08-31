@@ -128,6 +128,13 @@ TEST_F(DatabaseClassTest, removeStudent) {
     EXPECT_FALSE(database.removeStudent("01234567890"));
 }
 
+TEST_F(DatabaseClassTest, query) {
+    database.addStudent(Aname, Alastname, Aaddress, Acity, Abirthday, Apesel, Agender, AindexNumber, Afaculty, AfieldOfStudy, AcurrentSemester);
+    database.addStudent(Bname, Blastname, Baddress, Bcity, Bbirthday, Bpesel, Bgender, BindexNumber, Bfaculty, BfieldOfStudy, BcurrentSemester);
+    std::string data[9] = {"", "", "", "", "", "", "", "", "1"};
+    EXPECT_TRUE(database.newQuery(data));
+}
+
 TEST_F(UserClientClassTest, addStudent) {
     std::string input = "NAME\nLASTNAME\nST. STREET HOMENUM\nCITY\n1999-01-01\n01234567890\nMale\n012345\nFACULTY\nFIELD\n1\n";
     std::istringstream iss(input);
