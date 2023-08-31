@@ -1,0 +1,8 @@
+#Name;Lastname;Address;City;Birthday;Pesel;Gender;IndexNumber;Faculty;FieldOfStudy;CurrentSemester
+Adam;Miller;ul. Kolorowa 12;Wroclaw;1990-01-01;90010112345;M;123456;WIET;Informatyka;6
+Ewa;Kowalska;ul. Zielona 1;Katowice;1990-11-01;90010112346;F;123457;WI;Energetyka;6
+Jan;Nowak;ul. Czerwona 2;Warszawa;2000-12-28;90010112347;M;123458;WIMI;Ekologia;6
+Maria;Dopel;ul. Niebieska 3;Krakow;1998-06-11;90010112348;F;123459;WED;Matematyka;3
+Filip;Wersz;ul. Biala 4;Gdansk;1999-03-21;90010112349;M;123460;WIMI;Informatyka;3
+Marcin;Kowalski;ul. Zielona 5;Katowice;1999-11-01;90010112350;M;123461;WI;Energetyka;3
+Katarzyna;Nowak;ul. Czerwona 6;Warszawa;2000-12-28;90010112351;F;123462;WIMI;Ekologia;3
