@@ -31,6 +31,10 @@ void AdminClient::run() {
                 break;
             case '8':
                 showQuery();
+                break;
+            case '9':
+                addUser();
+                break;
             case '0':
                 return;
             default:
@@ -50,6 +54,7 @@ void AdminClient::showMenu() {
     std::cout << "[6] - Open Database from file" << std::endl;
     std::cout << "[7] - Make new query" << std::endl;
     std::cout << "[8] - Show Query" << std::endl;
+    std::cout << "[9] - Add User" << std::endl;
     std::cout << "[0] - Exit" << std::endl;
 }
 
@@ -66,6 +71,44 @@ bool AdminClient::deleteStudent() {
     else {
         SetConsoleTextAttribute( hOut, FOREGROUND_RED );
         std::cout << "Student not found" << std::endl;
+        SetConsoleTextAttribute( hOut, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED );
+        return false;
+    }
+}
+
+bool AdminClient::addUser() {
+    std::string login;
+    std::string password;
+    std::string role;
+    std::cout << "Enter login:";
+    getline(std::cin, login);
+    std::cout << "Enter password:";
+    getline(std::cin, password);
+    std::cout << "Enter role:";
+    getline(std::cin, role);
+    std::fstream userdata;
+    userdata.open("../resources/login.password", std::ios::out | std::ios::app);
+    if (userdata.is_open()) {
+        std::string line;
+        getline(userdata, line);
+        while (getline(userdata, line, ';')) {
+            if (line == login) {
+                SetConsoleTextAttribute( hOut, FOREGROUND_RED );
+                std::cout << "ERROR: User already exists" << std::endl;
+                SetConsoleTextAttribute( hOut, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED );
+                return false;
+            }
+        }
+        userdata << std::endl << login << ";" << password << ";" << role;
+        userdata.close();
+        SetConsoleTextAttribute( hOut, FOREGROUND_GREEN );
+        std::cout << "User added successfully" << std::endl;
+        SetConsoleTextAttribute( hOut, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED );
+        return true;
+    }
+    else {
+        SetConsoleTextAttribute( hOut, FOREGROUND_RED );
+        std::cout << "ERROR: Cannot open file" << std::endl;
         SetConsoleTextAttribute( hOut, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED );
         return false;
     }

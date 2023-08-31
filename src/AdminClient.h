@@ -8,6 +8,7 @@ public:
     void run() override;
     void showMenu() override;
     bool deleteStudent();
+    bool addUser();
 };
 
 #endif //UNIVERSITY_STUDENTS_DATABASE_ADMINCLIENT_H

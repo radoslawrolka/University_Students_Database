@@ -36,6 +36,7 @@ void UserClient::run() {
                 break;
             case '7':
                 showQuery();
+                break;
             case '0':
                 return;
             default:
