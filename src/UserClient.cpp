@@ -189,7 +189,7 @@ bool UserClient::makeQuery() {
     std::string data[9];
     int j = 0;
     for (int i=0; i<11; i++) {
-        if (i == 2 || i==5 || i==7) {
+        if (i == 2 || i==4 || i==5 || i==7) {
             continue;
         }
         while (true) {

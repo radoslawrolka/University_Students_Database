@@ -82,12 +82,8 @@ bool AdminClient::addUser() {
     std::string role;
     std::cout << "Enter login:";
     getline(std::cin, login);
-    std::cout << "Enter password:";
-    getline(std::cin, password);
-    std::cout << "Enter role:";
-    getline(std::cin, role);
     std::fstream userdata;
-    userdata.open("../resources/login.password", std::ios::out | std::ios::app);
+    userdata.open("../resources/login.password", std::ios::out | std::ios::in);
     if (userdata.is_open()) {
         std::string line;
         getline(userdata, line);
@@ -99,7 +95,23 @@ bool AdminClient::addUser() {
                 return false;
             }
         }
-        userdata << std::endl << login << ";" << password << ";" << role;
+        std::cout << "Enter password:";
+        getline(std::cin, password);
+        while (true) {
+            std::cout << "Enter role (user/admin):";
+            getline(std::cin, role);
+            if (role == "admin" || role == "user") {
+                break;
+            }
+            else {
+                SetConsoleTextAttribute( hOut, FOREGROUND_RED );
+                std::cout << "ERROR: Invalid role" << std::endl;
+                SetConsoleTextAttribute( hOut, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED );
+            }
+        }
+        userdata.clear();
+        userdata.seekp(0, std::ios::end);
+        userdata << "\n" << login << ";" << password << ";" << role;
         userdata.close();
         SetConsoleTextAttribute( hOut, FOREGROUND_GREEN );
         std::cout << "User added successfully" << std::endl;

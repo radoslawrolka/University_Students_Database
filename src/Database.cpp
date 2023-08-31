@@ -149,10 +149,14 @@ bool Database::newQuery(const std::string data[9]) {
         bool flag = true;
         int j = 0;
         for (int i=0; i<11; i++) {
-            if (i == 2 || i==5 || i==7) {
+            if (i == 2 || i==4 || i==5 || i==7) {
                 continue;
             }
-            if ((student.get()->*student->getGetter[i])() == data[j]) {
+            if (data[j].empty()) {
+                j++;
+                continue;
+            }
+            else if ((student.get()->*student->getGetter[i])() != data[j]) {
                 j++;
                 flag = false;
                 break;
@@ -170,8 +174,12 @@ bool Database::showQuery() {
         return false;
     }
     else {
+
         for (const auto& student : query_) {
+            SetConsoleTextAttribute( hOut,FOREGROUND_GREEN );
             std::cout << student->toString() << std::endl;
+            SetConsoleTextAttribute( hOut,FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED );
+            std::cout << "-----------------------------" << std::endl;
         }
         return true;
     }
