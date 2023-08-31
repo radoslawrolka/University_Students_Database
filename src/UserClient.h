@@ -23,6 +23,7 @@ public:
     virtual bool saveToFile();
     virtual bool openFromFile();
     virtual bool makeQuery();
+    virtual bool showQuery();
 };
 
 #endif //UNIVERSITY_STUDENTS_DATABASE_USERCLIENT_H

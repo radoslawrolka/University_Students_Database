@@ -31,6 +31,7 @@ public:
     bool saveToFile(const std::string& filename);
     bool openFromFile(const std::string& filename);
     bool newQuery(const std::string data[9]);
+    bool showQuery();
     ~Database();
 private:
     HANDLE hOut = GetStdHandle( STD_OUTPUT_HANDLE );

@@ -69,10 +69,23 @@ bool Database::removeStudent(const std::string& key) {
 }
 
 bool Database::saveToFile(const std::string& filename) {
+    std::string choice;
+    std::vector<std::shared_ptr<Student>>* boyx;
+    while (true) {
+        std::cout << "What you want to save? [query/database]:" << std::endl;
+        getline(std::cin, choice);
+        if (choice == "query") {
+            boyx = &query_;
+            break;
+        } else if (choice == "database") {
+            boyx = &students_;
+            break;
+        }
+    }
     file.open("../resources/"+filename+".db", std::ios::out);
     if (file.is_open()) {
         file << "#Name;Lastname;Address;City;Birthday;Pesel;Gender;IndexNumber;Faculty;FieldOfStudy;CurrentSemester\n";
-        for (auto& student : students_) {
+        for (const auto& student : *boyx) {
             file << student->getName() << ";";
             file << student->getLastName() << ";";
             file << student->getAddress() << ";";
@@ -150,6 +163,18 @@ bool Database::newQuery(const std::string data[9]) {
         }
     }
     return true;
+}
+
+bool Database::showQuery() {
+    if (query_.empty()) {
+        return false;
+    }
+    else {
+        for (const auto& student : query_) {
+            std::cout << student->toString() << std::endl;
+        }
+        return true;
+    }
 }
 
 Database::~Database() {

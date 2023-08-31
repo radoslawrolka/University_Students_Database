@@ -170,7 +170,7 @@ TEST_F(UserClientClassTest, saveToFile) {
     std::istringstream iss(input);
     std::cin.rdbuf(iss.rdbuf());
     EXPECT_TRUE(userClient.addStudent());
-    input = "test";
+    input = "test\ndatabase\n";
     iss = std::istringstream(input);
     std::cin.rdbuf(iss.rdbuf());
     EXPECT_TRUE(userClient.saveToFile());

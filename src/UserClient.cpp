@@ -34,14 +34,12 @@ void UserClient::run() {
             case '6':
                 makeQuery();
                 break;
-                /*
-                 case '7':
-                updateQuery();
-            */
-             case '0':
+            case '7':
+                showQuery();
+            case '0':
                 return;
             default:
-                std::cout << "Wrong choice, press 'h' to show actions" << std::endl;
+                std::cout << "Command does not exist, choose from list below:" << std::endl;
                 break;
         }
     }
@@ -52,10 +50,10 @@ void UserClient::showMenu() {
     std::cout << "[1] - Add Student" << std::endl;
     std::cout << "[2] - Edit Student" << std::endl;
     std::cout << "[3] - Find Student" << std::endl;
-    std::cout << "[4] - Save Database to file" << std::endl;
+    std::cout << "[4] - Save Database/Query to file" << std::endl;
     std::cout << "[5] - Open Database from file" << std::endl;
     std::cout << "[6] - Make new query" << std::endl;
-    std::cout << "[7] - Update existing query" << std::endl;
+    std::cout << "[7] - Show Query" << std::endl;
     std::cout << "[0] - Exit" << std::endl;
 }
 
@@ -215,6 +213,15 @@ bool UserClient::makeQuery() {
     }
 }
 
+bool UserClient::showQuery() {
+    if (!database_.showQuery()) {
+        SetConsoleTextAttribute( hOut, FOREGROUND_RED);
+        std::cout << "Query does not exist" << std::endl;
+        SetConsoleTextAttribute( hOut, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED );
+        return false;
+    }
+    return true;
+}
 bool valid(const std::string& data) {
     return true;
 }
