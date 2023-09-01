@@ -1,5 +1,6 @@
 # University_Students_Database
 Database project developed using the Scrum methodology, incorporating GoogleTest and TDD in the process.
+[TODO: Finish the description, add images]
 
 # Student
 This class represents a student in the database. It contains the following attributes:
