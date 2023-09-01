@@ -41,9 +41,10 @@ Tests are performed using GoogleTest. They are divided into two categories: unit
 Users credentials are stored in a file ```/resources/login.password```. If you don't have an account, admin have to create you one.
 <img src="images/login.png">
 ### 2. Choose the action
-Pay attention that some actions are available only for admin.
+Pay attention that some actions are available only for admin (example database is in ```/resources/example.db```).
 
-<img src="images/user_menu.png"> <img src="images/admin_menu.png">
+<img src="images/user_menu.png">
+<img src="images/admin_menu.png">
 
 # Functionalities
 
@@ -63,6 +64,8 @@ Pay attention that some actions are available only for admin.
 <img src="images/save_to_file.png">
 
 ### 6. Open database/query from file
+(file must be in ```/resources/<filename>.db```)
+
 <img src="images/load_from_file.png">
 <img src="images/load_from_file_error_1.png">
 <img src="images/load_from_file_error_2.png">
