@@ -38,6 +38,41 @@ Tests are performed using GoogleTest. They are divided into two categories: unit
 
 # How to work with the database?
 
-## 1. Log in
-## 2. Choose the option you want to use
-## 3. Follow the instructions
+### 1. Log in
+Users credentials are stored in a file ```/resources/login.password```. If you don't have an account, admin have to create you one.
+<img src="images/login.png">
+### 2. Choose the action
+Pay attention that some actions are available only for admin.
+
+<img src="images/user_menu.png"> <img src="images/admin_menu.png">
+
+# Functionalities
+
+### 1. Add a student
+<img src="images/add_Student.png">
+
+### 2. Edit a student
+<img src="images/edit_Student.png">
+
+### 3. Find a student
+<img src="images/find_Student.png"> <img src="images/find_Student_error.png">
+
+### 4. Delete a student [admin]
+<img src="images/delete_Student.png">
+
+### 5. Save database/query to file
+<img src="images/save_to_file.png">
+
+### 6. Open database/query from file
+<img src="images/load_from_file.png">
+<img src="images/load_from_file_error_1.png">
+<img src="images/load_from_file_error_2.png">
+
+### 7. Make new query
+<img src="images/make_query.png"> <img src="images/make_query_empty.png">
+
+### 8. Show query
+<img src="images/show_query.png">
+
+### 9. Add a user [admin]
+<img src="images/add_user.png"> <img src="images/add_user_error.png">
