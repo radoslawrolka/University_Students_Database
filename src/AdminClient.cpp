@@ -4,7 +4,7 @@ void AdminClient::run() {
     while (true) {
         showMenu();
         std::string choice;
-        std::getline(std::cin, choice);
+        Display::getlineBLUE(choice);
         switch (choice[0]) {
             case 'h':
                 break;
@@ -38,7 +38,7 @@ void AdminClient::run() {
             case '0':
                 return;
             default:
-                std::cout << "Command does not exist, choose from list below:" << std::endl;
+                Display::coutRED("Command does not exist, choose from list below:");
                 break;
         }
     }
@@ -61,17 +61,13 @@ void AdminClient::showMenu() {
 bool AdminClient::deleteStudent() {
     std::string key;
     std::cout << "Enter PESEL/Index number to delete student:";
-    getline(std::cin, key);
+    Display::getlineBLUE(key);
     if (database_.removeStudent(key)) {
-        SetConsoleTextAttribute( hOut, FOREGROUND_GREEN );
-        std::cout << "Student deleted successfully" << std::endl;
-        SetConsoleTextAttribute( hOut, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED );
+        Display::coutGREEN("Student deleted successfully");
         return true;
     }
     else {
-        SetConsoleTextAttribute( hOut, FOREGROUND_RED );
-        std::cout << "Student not found" << std::endl;
-        SetConsoleTextAttribute( hOut, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED );
+        Display::coutRED("Student not found");
         return false;
     }
 }
@@ -81,7 +77,7 @@ bool AdminClient::addUser() {
     std::string password;
     std::string role;
     std::cout << "Enter login:";
-    getline(std::cin, login);
+    Display::getlineBLUE(login);
     std::fstream userdata;
     userdata.open("../resources/login.password", std::ios::out | std::ios::in);
     if (userdata.is_open()) {
@@ -89,39 +85,31 @@ bool AdminClient::addUser() {
         getline(userdata, line);
         while (getline(userdata, line, ';')) {
             if (line == login) {
-                SetConsoleTextAttribute( hOut, FOREGROUND_RED );
-                std::cout << "ERROR: User already exists" << std::endl;
-                SetConsoleTextAttribute( hOut, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED );
+                Display::coutRED("ERROR: User already exists");
                 return false;
             }
         }
         std::cout << "Enter password:";
-        getline(std::cin, password);
+        Display::getlineBLUE(password);
         while (true) {
             std::cout << "Enter role (user/admin):";
-            getline(std::cin, role);
+            Display::getlineBLUE(role);
             if (role == "admin" || role == "user") {
                 break;
             }
             else {
-                SetConsoleTextAttribute( hOut, FOREGROUND_RED );
-                std::cout << "ERROR: Invalid role" << std::endl;
-                SetConsoleTextAttribute( hOut, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED );
+                Display::coutRED("ERROR: Invalid role");
             }
         }
         userdata.clear();
         userdata.seekp(0, std::ios::end);
         userdata << "\n" << login << ";" << password << ";" << role;
         userdata.close();
-        SetConsoleTextAttribute( hOut, FOREGROUND_GREEN );
-        std::cout << "User added successfully" << std::endl;
-        SetConsoleTextAttribute( hOut, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED );
+        Display::coutGREEN("User added successfully");
         return true;
     }
     else {
-        SetConsoleTextAttribute( hOut, FOREGROUND_RED );
-        std::cout << "ERROR: Cannot open file" << std::endl;
-        SetConsoleTextAttribute( hOut, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED );
+        Display::coutRED("ERROR: Cannot open file");
         return false;
     }
 }

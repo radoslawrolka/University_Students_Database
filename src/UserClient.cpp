@@ -12,7 +12,7 @@ void UserClient::run() {
     while (true) {
         showMenu();
         std::string choice;
-        std::getline(std::cin, choice);
+        Display::getlineBLUE(choice);
         switch (choice[0]) {
             case 'h':
                 break;
@@ -40,7 +40,7 @@ void UserClient::run() {
             case '0':
                 return;
             default:
-                std::cout << "Command does not exist, choose from list below:" << std::endl;
+                Display::coutRED("Command does not exist, choose from list below:");
                 break;
         }
     }
@@ -63,28 +63,22 @@ bool UserClient::addStudent() {
     for (int i=0; i<11; i++) {
         while (true) {
             std::cout << "Enter " << settersName[i] << ":";
-            getline(std::cin, data[i]);
+            Display::getlineBLUE(data[i]);
             if ((getValidator[i])(data[i])) {
                 break;
             }
             else {
-                SetConsoleTextAttribute( hOut, FOREGROUND_RED );
-                std::cout << "Invalid " << settersName[i] << std::endl;
-                SetConsoleTextAttribute( hOut, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED );
+                Display::coutRED("Invalid " + settersName[i]);
             }
         }
     }
     if (database_.addStudent(data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7],
                              data[8], data[9], data[10])) {
-        SetConsoleTextAttribute( hOut, FOREGROUND_GREEN);
-        std::cout << "Student added" << std::endl;
-        SetConsoleTextAttribute( hOut, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED );
+        Display::coutGREEN("Student added");
         return true;
     }
     else {
-        SetConsoleTextAttribute( hOut, FOREGROUND_RED );
-        std::cout << "ERROR: Student with same PESEL/Index already exists" << std::endl;
-        SetConsoleTextAttribute( hOut, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED );
+        Display::coutRED("ERROR: Student with same PESEL/Index already exists");
         return false;
     }
 }
@@ -93,12 +87,10 @@ bool UserClient::editStudent() {
     std::string key;
     std::string data;
     std::cout << "Enter PESEL or IndexNumber of student to edit: ";
-    getline(std::cin, key);
+    Display::getlineBLUE(key);
     std::shared_ptr<Student> student = database_.findStudent(key);
     if (!student) {
-        SetConsoleTextAttribute( hOut, FOREGROUND_RED );
-        std::cout << "Student not found" << std::endl;
-        SetConsoleTextAttribute( hOut, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED );
+        Display::coutRED("Student not found");
         return false;
     }
     std::cout << "[Press 'Enter' to ommit editing data field]" << std::endl;
@@ -109,7 +101,7 @@ bool UserClient::editStudent() {
         while (true) {
             std::cout << "Current " << settersName[i] << ": " << (student.get()->*student->getGetter[i])()
                       << "\nNew " << settersName[i] << ":";
-            getline(std::cin, data);
+            Display::getlineBLUE(data);
             if (data.empty()) {
                 break;
             }
@@ -118,33 +110,25 @@ bool UserClient::editStudent() {
                 break;
             }
             else {
-                SetConsoleTextAttribute( hOut, FOREGROUND_RED );
-                std::cout << "Invalid " << settersName[i] << std::endl;
-                SetConsoleTextAttribute( hOut, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED );
+                Display::coutRED("Invalid " + settersName[i]);
             }
         }
     }
-    SetConsoleTextAttribute( hOut, FOREGROUND_GREEN );
-    std::cout << "Student edited" << std::endl;
-    SetConsoleTextAttribute( hOut, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED );
+    Display::coutGREEN("Student edited");
     return true;
 }
 
 bool UserClient::findStudent() {
     std::string key;
     std::cout << "Enter PESEL or IndexNumber of student to find: ";
-    getline(std::cin, key);
+    Display::getlineBLUE(key);
     std::shared_ptr<Student> student = database_.findStudent(key);
     if (student) {
-        SetConsoleTextAttribute( hOut, FOREGROUND_GREEN);
-        std::cout << student->toString() << std::endl;
-        SetConsoleTextAttribute( hOut, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED );
+        Display::coutGREEN(student->toString());
         return true;
     }
     else {
-        SetConsoleTextAttribute( hOut, FOREGROUND_RED );
-        std::cout << "Student not found" << std::endl;
-        SetConsoleTextAttribute( hOut, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED );
+        Display::coutRED("Student not found");
         return false;
     }
 }
@@ -152,17 +136,13 @@ bool UserClient::findStudent() {
 bool UserClient::saveToFile() {
     std::cout << "Enter filename: ";
     std::string filename;
-    getline(std::cin, filename);
+    Display::getlineBLUE(filename);
     if (database_.saveToFile(filename)) {
-        SetConsoleTextAttribute( hOut, FOREGROUND_GREEN);
-        std::cout << "Database saved" << std::endl;
-        SetConsoleTextAttribute( hOut, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED );
+        Display::coutGREEN("Database saved");
         return true;
     }
     else {
-        SetConsoleTextAttribute( hOut, FOREGROUND_RED );
-        std::cout << "ERROR: Cannot save database" << std::endl;
-        SetConsoleTextAttribute( hOut, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED );
+        Display::coutRED("ERROR: Cannot save database");
         return false;
     }
 }
@@ -170,17 +150,13 @@ bool UserClient::saveToFile() {
 bool UserClient::openFromFile() {
     std::cout << "Enter filename: ";
     std::string filename;
-    getline(std::cin, filename);
+    Display::getlineBLUE(filename);
     if (database_.openFromFile(filename)) {
-        SetConsoleTextAttribute( hOut, FOREGROUND_GREEN);
-        std::cout << "Database loaded" << std::endl;
-        SetConsoleTextAttribute( hOut, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED );
+        Display::coutGREEN("Database loaded");
         return true;
     }
     else {
-        SetConsoleTextAttribute( hOut, FOREGROUND_RED );
-        std::cout << "ERROR: Cannot load database" << std::endl;
-        SetConsoleTextAttribute( hOut, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED );
+        Display::coutRED("ERROR: Cannot load database");
         return false;
     }
 }
@@ -194,31 +170,25 @@ bool UserClient::makeQuery() {
         }
         while (true) {
             std::cout << "Enter " << settersName[i] << ":";
-            getline(std::cin, data[j]);
+            Display::getlineBLUE(data[j]);
             if ((getValidator[i])(data[j])) {
                 break;
             }
             else {
-                SetConsoleTextAttribute( hOut, FOREGROUND_RED );
-                std::cout << "Invalid " << settersName[i] << std::endl;
-                SetConsoleTextAttribute( hOut, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED );
+                Display::coutRED("Invalid " + settersName[i]);
             }
         }
         j++;
     }
     if (database_.newQuery(data)) {
-        SetConsoleTextAttribute( hOut, FOREGROUND_GREEN);
-        std::cout << "Query created" << std::endl;
-        SetConsoleTextAttribute( hOut, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED );
+        Display::coutGREEN("Query created");
         return true;
     }
 }
 
 bool UserClient::showQuery() {
     if (!database_.showQuery()) {
-        SetConsoleTextAttribute( hOut, FOREGROUND_RED);
-        std::cout << "Query does not exist" << std::endl;
-        SetConsoleTextAttribute( hOut, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED );
+        Display::coutRED("Query does not exist");
         return false;
     }
     return true;

@@ -2,6 +2,7 @@
 #define UNIVERSITY_STUDENTS_DATABASE_DATABASE_H
 
 #include "Student.h"
+#include "Display.h"
 
 #include <vector>
 #include <memory>

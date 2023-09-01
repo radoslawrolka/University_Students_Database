@@ -73,7 +73,7 @@ bool Database::saveToFile(const std::string& filename) {
     std::vector<std::shared_ptr<Student>>* boyx;
     while (true) {
         std::cout << "What you want to save? [query/database]:" << std::endl;
-        getline(std::cin, choice);
+        Display::getlineBLUE(choice);
         if (choice == "query") {
             boyx = &query_;
             break;
@@ -123,13 +123,11 @@ bool Database::openFromFile(const std::string &filename) {
             while(std::getline(ss, token[i++], ';')) {
             }
             if (token[10].empty()) {
-                SetConsoleTextAttribute( hOut,FOREGROUND_RED );
-                std::cout << "ERROR on line " << counter << std::endl;
+                Display::coutRED("ERROR on line " + std::to_string(counter));
                 continue;
             }
             if (!addStudent(token[0], token[1], token[2], token[3], token[4], token[5], token[6], token[7], token[8], token[9], token[10])) {
-                SetConsoleTextAttribute( hOut,FOREGROUND_RED );
-                std::cout << "ERROR on line " << counter << std::endl;
+                Display::coutRED("ERROR on line " + std::to_string(counter));
                 continue;
             }
         }
@@ -176,9 +174,7 @@ bool Database::showQuery() {
     else {
 
         for (const auto& student : query_) {
-            SetConsoleTextAttribute( hOut,FOREGROUND_GREEN );
-            std::cout << student->toString() << std::endl;
-            SetConsoleTextAttribute( hOut,FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED );
+            Display::coutGREEN(student->toString());
             std::cout << "-----------------------------" << std::endl;
         }
         return true;

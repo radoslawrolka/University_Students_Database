@@ -1,12 +1,12 @@
 #include "UserClient.h"
 #include "AdminClient.h"
+#include "Display.h"
 
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <conio.h>
 #include <vector>
-#include <windows.h>
 #include <cstdlib>
 
 void greet();
@@ -32,13 +32,10 @@ void greet() {
 }
 
 UserClient* login() {
-    HANDLE hOut;
-    hOut = GetStdHandle( STD_OUTPUT_HANDLE );
     std::ifstream file;
     file.open("../resources/login.password");
     if (!file.is_open()) {
-        SetConsoleTextAttribute( hOut, FOREGROUND_RED );
-        std::cout << "System Error (No user data file)" << std::endl;
+        Display::coutRED("System Error (No user data file)");
         exit(1);
     }
     else {
@@ -62,11 +59,10 @@ UserClient* login() {
         std::string login;
         std::string password;
         while (true) {
-            std::cout << "Login:";
-            getline(std::cin, login);
-            std::cout << "Password:";
-            getline(std::cin, password);
-
+            std::cout << "Login: ";
+            Display::getlineBLUE(login);
+            std::cout << "Password: ";
+            Display::getlineBLUE(password);
             for (auto &data : loginData) {
                 if (login == data.login && password == data.password) {
                     if (data.role == "admin") {
@@ -79,11 +75,9 @@ UserClient* login() {
                     }
                 }
             }
-            SetConsoleTextAttribute( hOut, FOREGROUND_RED );
-            std::cout << "Wrong login or password." << std::endl;
-            SetConsoleTextAttribute( hOut, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED );
+            Display::coutRED("Wrong login or password.");
             std::cout << "Press Y to try again or N to exit." << std::endl;
-            std::getline(std::cin, line);
+            Display::getlineBLUE(line);
             if (line == "N" || line == "n") {
                 exit(0);
             }

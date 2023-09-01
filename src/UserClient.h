@@ -3,6 +3,7 @@
 
 #include "Database.h"
 #include "Student.h"
+#include "Display.h"
 
 #include <iostream>
 #include <windows.h>
@@ -14,7 +15,6 @@ public:
     virtual void run();
     ~UserClient() = default;
 //private:
-    HANDLE hOut = GetStdHandle( STD_OUTPUT_HANDLE );
     Database database_;
     virtual void showMenu();
     virtual bool addStudent();
