@@ -15,7 +15,9 @@ add_executable(University_Students_Database
         src/AdminClient.cpp
         src/AdminClient.h
         src/AdminClient.cpp
-        src/AdminClient.h)
+        src/AdminClient.h
+        src/Display.cpp
+        src/Display.h)
 
 
 include(FetchContent)
@@ -40,6 +42,8 @@ add_executable(
         src/AdminClient.h
         src/AdminClient.cpp
         src/AdminClient.h
+        src/Display.cpp
+        src/Display.h
 )
 target_link_libraries(
         USD_unittest
