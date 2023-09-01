@@ -13,7 +13,7 @@ void Display::coutGREEN(const std::string& text) {
 }
 
 void Display::getlineBLUE(std::string& text) {
-    SetConsoleTextAttribute( hOut, FOREGROUND_BLUE );
+    SetConsoleTextAttribute( hOut, FOREGROUND_INTENSITY | FOREGROUND_GREEN | FOREGROUND_BLUE);
     getline(std::cin, text);
     SetConsoleTextAttribute( hOut, FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_RED );
 }
