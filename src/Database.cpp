@@ -1,8 +1,8 @@
 #include "Database.h"
 
 Gender toGender(const std::string& gender) {
-    if (gender == "Male") return Gender::Male;
-    if (gender == "Female") return Gender::Female;
+    if (gender == "Male" || gender == "M") return Gender::Male;
+    if (gender == "Female" || gender == "F") return Gender::Female;
     return Gender::Other;
 }
 
@@ -154,17 +154,23 @@ bool Database::newQuery(const std::string data[9]) {
                 j++;
                 continue;
             }
-            else if ((student.get()->*student->getGetter[i])() != data[j]) {
-                j++;
+            if ((student.get()->*student->getGetter[i])() != data[j]) {
                 flag = false;
                 break;
             }
+            j++;
         }
         if (flag) {
             query_.push_back(student);
         }
     }
-    return true;
+    if (query_.empty()) {
+        Display::coutRED("No students found");
+        return false;
+    }
+    else {
+        return true;
+    }
 }
 
 bool Database::showQuery() {

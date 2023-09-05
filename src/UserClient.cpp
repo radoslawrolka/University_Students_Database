@@ -5,7 +5,7 @@ bool validDate(const std::string& date);
 bool validPesel(const std::string& data);
 bool validIndexNumber(const std::string& data);
 typedef bool (*validators)(const std::string&);
-std::string settersName[11] = {"Name", "Lastname", "Address", "City", "Birthday", "PESEL", "Gender", "Index number", "Faculty", "Field of study", "Current semester"};
+std::string settersName[11] = {"Name", "Lastname", "Address", "City", "Birthday (YYYY-MM-DD)", "PESEL", "Gender (Male/Female/Other)", "Index number", "Faculty", "Field of study", "Current semester"};
 validators getValidator[11] = {valid, valid, valid, valid, validDate, validPesel, valid, validIndexNumber, valid, valid, valid};
 
 void UserClient::run() {
@@ -183,6 +183,10 @@ bool UserClient::makeQuery() {
     if (database_.newQuery(data)) {
         Display::coutGREEN("Query created");
         return true;
+    }
+    else {
+        Display::coutRED("Query not created");
+        return false;
     }
 }
 
